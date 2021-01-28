@@ -19,9 +19,12 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8HF-SA-hOF">
                                 <rect key="frame" x="20" y="114" width="374" height="32"/>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
+                                    <segment title="Users"/>
+                                    <segment title="Saved Users"/>
                                 </segments>
+                                <connections>
+                                    <action selector="changeUsersListButtonTapped:" destination="BYZ-38-t0r" eventType="valueChanged" id="D6a-xv-SgZ"/>
+                                </connections>
                             </segmentedControl>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="xJR-Ie-ocp">
                                 <rect key="frame" x="11" y="154" width="392" height="56"/>
@@ -75,19 +78,19 @@
         <!--DetailsVC-->
         <scene sceneID="BDC-yd-usJ">
             <objects>
-                <viewController id="d1l-OF-pvA" customClass="DetailsVC" customModule="RenderforestTask" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailsVC" id="d1l-OF-pvA" customClass="DetailsVC" customModule="RenderforestTask" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JVT-Wm-XVf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Rsa-cA-HpT">
-                                <rect key="frame" x="0.0" y="95" width="414" height="195"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="195"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="195" id="Jv5-b8-cpq"/>
                                 </constraints>
                             </mapView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo5220015480062980379" translatesAutoresizingMaskIntoConstraints="NO" id="rFN-4a-HOs">
-                                <rect key="frame" x="147" y="228" width="120" height="120"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fish" translatesAutoresizingMaskIntoConstraints="NO" id="rFN-4a-HOs">
+                                <rect key="frame" x="147" y="175" width="120" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="wnB-3s-yvd"/>
                                     <constraint firstAttribute="height" constant="120" id="xOA-kv-xzn"/>
@@ -97,6 +100,12 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="60"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htT-rg-11G">
@@ -105,20 +114,24 @@
                                     <constraint firstAttribute="height" constant="60" id="p3j-hD-gGs"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" title="Save us">
                                     <color key="titleShadowColor" systemColor="systemGreenColor"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="30"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gjs-QV-MLY">
+                                <rect key="frame" x="154.5" y="740" width="105" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Remove user">
+                                    <color key="titleColor" systemColor="systemRedColor"/>
+                                </state>
+                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="lYP-CO-YDi">
-                                <rect key="frame" x="20" y="358" width="374" height="79"/>
+                                <rect key="frame" x="20" y="295" width="374" height="79"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M82-FT-f0R">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="26.5"/>
@@ -146,31 +159,24 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gjs-QV-MLY">
-                                <rect key="frame" x="154.5" y="735" width="105" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Remove user">
-                                    <color key="titleColor" systemColor="systemRedColor"/>
-                                </state>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xV8-Jc-sVe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Rsa-cA-HpT" firstAttribute="top" secondItem="xV8-Jc-sVe" secondAttribute="top" constant="51" id="7IS-eb-rmm"/>
+                            <constraint firstItem="Rsa-cA-HpT" firstAttribute="top" secondItem="xV8-Jc-sVe" secondAttribute="top" id="5WQ-7q-1AC"/>
                             <constraint firstItem="htT-rg-11G" firstAttribute="leading" secondItem="xV8-Jc-sVe" secondAttribute="leading" constant="71" id="8Cn-ER-xvf"/>
                             <constraint firstItem="xV8-Jc-sVe" firstAttribute="trailing" secondItem="htT-rg-11G" secondAttribute="trailing" constant="71" id="8Im-1n-hUh"/>
-                            <constraint firstItem="rFN-4a-HOs" firstAttribute="top" secondItem="xV8-Jc-sVe" secondAttribute="top" constant="184" id="ABT-1F-3uC"/>
                             <constraint firstItem="Rsa-cA-HpT" firstAttribute="trailing" secondItem="xV8-Jc-sVe" secondAttribute="trailing" id="LiZ-3u-7ag"/>
                             <constraint firstItem="rFN-4a-HOs" firstAttribute="centerX" secondItem="xV8-Jc-sVe" secondAttribute="centerX" id="MIv-2q-vGt"/>
                             <constraint firstItem="lYP-CO-YDi" firstAttribute="leading" secondItem="xV8-Jc-sVe" secondAttribute="leading" constant="20" id="SKb-9G-zDG"/>
                             <constraint firstItem="Gjs-QV-MLY" firstAttribute="centerX" secondItem="xV8-Jc-sVe" secondAttribute="centerX" id="WPz-93-lBz"/>
+                            <constraint firstItem="Gjs-QV-MLY" firstAttribute="top" secondItem="htT-rg-11G" secondAttribute="bottom" constant="5" id="dFp-LN-LTU"/>
                             <constraint firstItem="rFN-4a-HOs" firstAttribute="centerX" secondItem="Rsa-cA-HpT" secondAttribute="centerX" id="dOh-1S-EHU"/>
-                            <constraint firstItem="Gjs-QV-MLY" firstAttribute="top" secondItem="htT-rg-11G" secondAttribute="bottom" id="eNQ-N4-rz5"/>
+                            <constraint firstItem="rFN-4a-HOs" firstAttribute="top" secondItem="xV8-Jc-sVe" secondAttribute="top" constant="131" id="gOd-xx-sxu"/>
                             <constraint firstItem="xV8-Jc-sVe" firstAttribute="bottom" secondItem="htT-rg-11G" secondAttribute="bottom" constant="127" id="iSa-cF-HUL"/>
                             <constraint firstItem="xV8-Jc-sVe" firstAttribute="trailing" secondItem="lYP-CO-YDi" secondAttribute="trailing" constant="20" id="sQm-L3-TKo"/>
-                            <constraint firstItem="lYP-CO-YDi" firstAttribute="top" secondItem="rFN-4a-HOs" secondAttribute="bottom" constant="10" id="wwW-KU-w3Z"/>
                             <constraint firstItem="Rsa-cA-HpT" firstAttribute="leading" secondItem="xV8-Jc-sVe" secondAttribute="leading" id="xaZ-bC-0wv"/>
+                            <constraint firstItem="lYP-CO-YDi" firstAttribute="top" secondItem="rFN-4a-HOs" secondAttribute="bottom" id="yLe-kw-6Q5"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="c1H-JO-xwa"/>
@@ -209,7 +215,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="photo5220015480062980379" width="750" height="1132"/>
+        <image name="fish" width="1920" height="1080"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -19,21 +19,27 @@ class DetailsVC: UIViewController {
 	@IBOutlet weak var saveUserButton: UIButton!
 	@IBOutlet weak var removeUserButton: UIButton!
 	
+	var nameString = String()
+	
 	override func viewDidLoad() {
         super.viewDidLoad()
+		userName.text = nameString
 		userImage.layer.borderWidth = 3
 		userImage.layer.borderColor = UIColor.white.cgColor
+		navigationController?.navigationBar.isHidden = false
+		self.title = nameString
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+	
+	override func viewWillAppear(_ animated: Bool) {
+		if saveUserButton.titleLabel?.text == "Save user" {
+			saveUserButton.backgroundColor = .green
+			saveUserButton.titleLabel?.textColor = .white
+			removeUserButton.isHidden = true
+		} else {
+			saveUserButton.backgroundColor = .lightGray
+			saveUserButton.titleLabel?.textColor = .black
+			removeUserButton.isHidden = false
+			removeUserButton.titleLabel?.textColor = .red
+		}
+	}
 }
