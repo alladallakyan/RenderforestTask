@@ -6,12 +6,16 @@
 //
 
 import UIKit
+import Moya
 
 class UsersVC: UIViewController {
 
 	@IBOutlet weak var segmentedControl: UISegmentedControl!
 	@IBOutlet weak var searchBar: UISearchBar!
 	@IBOutlet weak var tableView: UITableView!
+	
+	//var users = [User]()
+	var userProvider = MoyaProvider<UserService>()
 	
 	var users = ["a", "b", "c", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "w", "x", "y", "z"]
 	var savedUsers = ["r", "s", "t", "w", "x", "y", "z","j", "k", "l", "m", "n", "o", "p", "q"]
@@ -21,6 +25,19 @@ class UsersVC: UIViewController {
 		tableView.register(UINib(nibName: "Cell", bundle: nil), forCellReuseIdentifier: "Cell")
 		tableView.rowHeight = 100
 		self.title = "Users"
+		
+		userProvider.request(.readUsers(seed: "renderForest", results: 20, page: 1)) { (result) in
+			print(result)
+			switch result {
+			case .success(let response):
+				print(response.data)
+
+				let json = try! JSONSerialization.jsonObject(with: response.data, options: [])
+				print(json)
+			case .failure(let error):
+				print(error)
+			}
+		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
