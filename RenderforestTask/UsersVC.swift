@@ -27,7 +27,6 @@ class UsersVC: UIViewController {
 		navigationController?.navigationBar.isHidden = true
 	}
 	
-	
 	@IBAction func changeUsersListButtonTapped(_ sender: Any) {
 		tableView.reloadData()
 	}
