@@ -1,0 +1,6 @@
+framework module Pods_RenderforestTask {
+  umbrella header "Pods-RenderforestTask-umbrella.h"
+
+  export *
+  module * { export * }
+}
