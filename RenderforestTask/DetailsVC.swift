@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-class DetailsVC: UIViewController {
+class DetailsVC: UIViewController, MKMapViewDelegate {
 
 	@IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var userImage: UIImageView!
@@ -20,16 +20,37 @@ class DetailsVC: UIViewController {
 	@IBOutlet weak var removeUserButton: UIButton!
 	
 	var nameString = String()
+	var genderString = String()
+	var countryString = String()
+	var locationString = String()
+	var latitude = String()
+	var longitude = String()
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
-		userName.text = nameString
 		userImage.layer.borderWidth = 3
 		userImage.layer.borderColor = UIColor.white.cgColor
 		navigationController?.navigationBar.isHidden = false
 		self.title = nameString
+		mapView.delegate = self
+		setRegioOnMap()
+		setUserDetails()
     }
 	
+	func setUserDetails() {
+		userName.text = nameString
+		userGender.text = genderString
+		userCountry.text = countryString
+		userLocation.text = locationString
+	}
+	
+	func setRegioOnMap() {
+		var center: CLLocationCoordinate2D = CLLocationCoordinate2D()
+		center.latitude = CLLocationDegrees(latitude)!
+		center.longitude = CLLocationDegrees(longitude)!
+		self.mapView.setRegion(MKCoordinateRegion(center: center, span: self.mapView.region.span), animated: true)
+		//self.mapView.setRegion(MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)), animated: true)
+	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		if saveUserButton.titleLabel?.text == "Save user" {

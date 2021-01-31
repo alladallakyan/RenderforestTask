@@ -17,7 +17,7 @@ class UsersVC: UIViewController {
 	var userProvider = MoyaProvider<UserService>()
 	
 	var results = [Result]()
-	var savedUsers = [Result]()
+	var filteredUsers = [Result]()
 	
 	let seed = "renderForest"
 	var startIndex = 0
@@ -29,40 +29,36 @@ class UsersVC: UIViewController {
 		tableView.register(UINib(nibName: "Cell", bundle: nil), forCellReuseIdentifier: "Cell")
 		tableView.rowHeight = 100
 		self.title = "Users"
+		searchBar.delegate = self
 		results.removeAll()
 		loadData()
+		filteredUsers = results
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		navigationController?.navigationBar.isHidden = true
 	}
-	
+
 	@IBAction func changeUsersListButtonTapped(_ sender: Any) {
 		tableView.reloadData()
 	}
 	
 	func loadData() {
-		userProvider.request(.readUsers(seed: seed, results: batchSize, page: page)) { (result) in
+		userProvider.request(.readUsers(seed: seed, results: batchSize, page: page)) { [self] (result) in
 			switch result {
 			case .success(let response):
 				let results = try? response.map(User.self).results
-				//
-				var items = self.results
+				var items: [Result] = self.results
+				//var items = self.results
 				items.append(contentsOf: results ?? [])
-				
 				if self.startIndex < items.count {
 					self.results = items
 					self.startIndex = items.count
-					print("results\(self.results.count)")
-					print("startIndex\(self.startIndex)")
-					print("items\(items.count)")
 					DispatchQueue.main.async {
 						self.tableView.reloadData()
 					}
 				}
-				//
-				//self.results = results ?? []
-				//self.tableView.reloadData()
+				self.filteredUsers = self.results
 			case .failure(let error):
 				print(error)
 			}
@@ -70,15 +66,16 @@ class UsersVC: UIViewController {
 	}
 }
 
-extension UsersVC: UITableViewDataSource, UITableViewDelegate {
+extension UsersVC: UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		var returnValue = 0
+		let filtered: [Result] = filteredUsers
 		switch (segmentedControl.selectedSegmentIndex) {
 		case 0:
-			returnValue = results.count
+			returnValue = filtered.count //results.count
 		case 1:
-			returnValue = savedUsers.count
+			returnValue = filteredUsers.count
 			break
 		default:
 			break
@@ -88,19 +85,18 @@ extension UsersVC: UITableViewDataSource, UITableViewDelegate {
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
-		let user = results[indexPath.row].name
+		let filtered: [Result] = filteredUsers
+		let user = filtered[indexPath.row] //results[indexpath.row]
 		switch (segmentedControl.selectedSegmentIndex) {
 		case 0:
-			if indexPath.row == results.count - 1 { // last cell
+			if indexPath.row == results.count - 1 {
 				page+=1
-				loadData()
-				print("page\(page)")
-				//tableView.reloadData()
+			    loadData()
 			}
-			cell.userName.text = user?.first
+			cell.setUp(result: user)
 			break
 		case 1:
-			cell.userName.text = savedUsers[indexPath.row].name?.first
+			cell.userName.text = filteredUsers[indexPath.row].name?.first
 			break
 		default:
 			break
@@ -109,20 +105,38 @@ extension UsersVC: UITableViewDataSource, UITableViewDelegate {
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		if let viewController = storyboard?.instantiateViewController(identifier: "DetailsVC") as? DetailsVC {
-			let user = results[indexPath.row].name
+		if let detailVC = storyboard?.instantiateViewController(identifier: "DetailsVC") as? DetailsVC {
+			let user = filteredUsers[indexPath.row]
 			switch (segmentedControl.selectedSegmentIndex) {
 			case 0:
-				viewController.nameString = user?.first ?? ""
-					navigationController?.pushViewController(viewController, animated: true)
+				detailVC.nameString = (user.name?.first ?? "") + " " + (user.name?.last ?? "")
+				detailVC.genderString = (user.gender?.rawValue ?? "") + " " + (user.phone ?? "")
+				detailVC.countryString = user.location?.country ?? ""
+				detailVC.locationString = (user.location?.state ?? "") + " " + (user.location?.street?.name ?? "")
+				detailVC.longitude = user.location?.coordinates?.longitude ?? ""
+				detailVC.latitude = user.location?.coordinates?.latitude ?? ""
+				
+				navigationController?.pushViewController(detailVC, animated: true)
 				break
 			case 1:
-				viewController.nameString = savedUsers[indexPath.row].name?.first ?? ""
-					navigationController?.pushViewController(viewController, animated: true)
+				detailVC.nameString = filteredUsers[indexPath.row].name?.first ?? ""
+					navigationController?.pushViewController(detailVC, animated: true)
 				break
 			default:
 				break
 			}
 		}
 	}
+
+	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+		if let searchText = searchBar.text, !searchText.isEmpty {
+			filteredUsers = results.filter { (item: Result) in
+		return (item.name?.first!.lowercased().contains(searchText.lowercased()))!
+					}
+		} else {
+			filteredUsers = results
+		}
+		tableView.reloadData()
+	}
 }
+

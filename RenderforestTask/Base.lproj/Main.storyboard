@@ -29,6 +29,9 @@
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="xJR-Ie-ocp">
                                 <rect key="frame" x="11" y="154" width="392" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="GJg-0o-FhI"/>
+                                </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dNr-dq-KBy">
                                 <rect key="frame" x="20" y="219" width="374" height="631"/>
@@ -86,8 +89,11 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Rsa-cA-HpT">
                                 <rect key="frame" x="0.0" y="44" width="414" height="195"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="195" id="Jv5-b8-cpq"/>
+                                    <constraint firstAttribute="height" constant="195" id="4CJ-GF-55Y"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="d1l-OF-pvA" id="hd5-MP-bcC"/>
+                                </connections>
                             </mapView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fish" translatesAutoresizingMaskIntoConstraints="NO" id="rFN-4a-HOs">
                                 <rect key="frame" x="147" y="175" width="120" height="120"/>
@@ -163,19 +169,18 @@
                         <viewLayoutGuide key="safeArea" id="xV8-Jc-sVe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Rsa-cA-HpT" firstAttribute="top" secondItem="xV8-Jc-sVe" secondAttribute="top" id="5WQ-7q-1AC"/>
+                            <constraint firstItem="Rsa-cA-HpT" firstAttribute="top" secondItem="xV8-Jc-sVe" secondAttribute="top" id="2m9-Lg-QuS"/>
                             <constraint firstItem="htT-rg-11G" firstAttribute="leading" secondItem="xV8-Jc-sVe" secondAttribute="leading" constant="71" id="8Cn-ER-xvf"/>
                             <constraint firstItem="xV8-Jc-sVe" firstAttribute="trailing" secondItem="htT-rg-11G" secondAttribute="trailing" constant="71" id="8Im-1n-hUh"/>
-                            <constraint firstItem="Rsa-cA-HpT" firstAttribute="trailing" secondItem="xV8-Jc-sVe" secondAttribute="trailing" id="LiZ-3u-7ag"/>
                             <constraint firstItem="rFN-4a-HOs" firstAttribute="centerX" secondItem="xV8-Jc-sVe" secondAttribute="centerX" id="MIv-2q-vGt"/>
                             <constraint firstItem="lYP-CO-YDi" firstAttribute="leading" secondItem="xV8-Jc-sVe" secondAttribute="leading" constant="20" id="SKb-9G-zDG"/>
+                            <constraint firstItem="Rsa-cA-HpT" firstAttribute="leading" secondItem="xV8-Jc-sVe" secondAttribute="leading" id="U6V-p7-KcA"/>
                             <constraint firstItem="Gjs-QV-MLY" firstAttribute="centerX" secondItem="xV8-Jc-sVe" secondAttribute="centerX" id="WPz-93-lBz"/>
                             <constraint firstItem="Gjs-QV-MLY" firstAttribute="top" secondItem="htT-rg-11G" secondAttribute="bottom" constant="5" id="dFp-LN-LTU"/>
-                            <constraint firstItem="rFN-4a-HOs" firstAttribute="centerX" secondItem="Rsa-cA-HpT" secondAttribute="centerX" id="dOh-1S-EHU"/>
                             <constraint firstItem="rFN-4a-HOs" firstAttribute="top" secondItem="xV8-Jc-sVe" secondAttribute="top" constant="131" id="gOd-xx-sxu"/>
                             <constraint firstItem="xV8-Jc-sVe" firstAttribute="bottom" secondItem="htT-rg-11G" secondAttribute="bottom" constant="127" id="iSa-cF-HUL"/>
+                            <constraint firstItem="Rsa-cA-HpT" firstAttribute="trailing" secondItem="xV8-Jc-sVe" secondAttribute="trailing" id="qvw-1G-V8F"/>
                             <constraint firstItem="xV8-Jc-sVe" firstAttribute="trailing" secondItem="lYP-CO-YDi" secondAttribute="trailing" constant="20" id="sQm-L3-TKo"/>
-                            <constraint firstItem="Rsa-cA-HpT" firstAttribute="leading" secondItem="xV8-Jc-sVe" secondAttribute="leading" id="xaZ-bC-0wv"/>
                             <constraint firstItem="lYP-CO-YDi" firstAttribute="top" secondItem="rFN-4a-HOs" secondAttribute="bottom" id="yLe-kw-6Q5"/>
                         </constraints>
                     </view>
