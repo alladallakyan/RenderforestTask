@@ -26,23 +26,27 @@ class Cell: UITableViewCell {
 	
 	func setUp(result: Result) {
 		let name = (result.name?.first ?? "") + " " + (result.name?.last ?? "")
-		let gender = (result.gender?.rawValue ?? "") + " " + (result.phone ?? "")
+		let gender = (result.gender?.rawValue ?? "") + ", " + (result.phone ?? "")
 		let country = result.location?.country
-		//let postcode = result.location?.postcode
 		let location = (result.location?.state ?? "") + " " + (result.location?.street?.name ?? "")
-		let image = result.picture
 		self.userName.text = name
 		self.userGender.text = gender
 		self.userCountry.text = country
 		self.userLocation.text = location
-		//self.userImage.image = image
-		}
-    
+		self.userImage.loadImage(urlString: (result.picture?.large)!)
+	
+	}
+	
+	func setUpSavedUsers(savedUser: SavedUser) {
+		let name = (savedUser.firstName ?? "") + " " + (savedUser.lastName ?? "")
+		let gender = (savedUser.gender ?? "") + ", " + (savedUser.phone ?? "")
+		let country = savedUser.country
+		let location = (savedUser.state ?? "") + " " + (savedUser.streetName ?? "")
+		self.userName.text = name
+		self.userGender.text = gender
+		self.userCountry.text = country
+		self.userLocation.text = location
+		self.userImage.loadImage(urlString: (savedUser.picture) ?? "")
+	}
 }
-//extension UIImageView {
-//	public func transition(toImage image: UIImage?) {
-//		UIView.transition(with: self, duration: 0.3, options: [.transitionCrossDissolve]) {
-//			self.image = image
-//		}; completion;: nil)
-//	}
-//}
+

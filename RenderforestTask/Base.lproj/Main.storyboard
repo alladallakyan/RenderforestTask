@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Lhy-JU-Dmq">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -11,7 +12,7 @@
         <!--UsersVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="UsersVC" customModule="RenderforestTask" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UsersVC" id="BYZ-38-t0r" customClass="UsersVC" customModule="RenderforestTask" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -114,27 +115,15 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htT-rg-11G">
-                                <rect key="frame" x="71" y="675" width="272" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="p3j-hD-gGs"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Save us">
-                                    <color key="titleShadowColor" systemColor="systemGreenColor"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="30"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gjs-QV-MLY">
-                                <rect key="frame" x="154.5" y="740" width="105" height="34"/>
+                                <rect key="frame" x="154.5" y="788" width="105" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Remove user">
                                     <color key="titleColor" systemColor="systemRedColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="removeUser:" destination="d1l-OF-pvA" eventType="touchUpInside" id="aUe-CD-dMz"/>
+                                </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="lYP-CO-YDi">
                                 <rect key="frame" x="20" y="295" width="374" height="79"/>
@@ -165,10 +154,31 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htT-rg-11G">
+                                <rect key="frame" x="71" y="726" width="272" height="60"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="p3j-hD-gGs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Save user">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="saveUser:" destination="d1l-OF-pvA" eventType="touchUpInside" id="ucy-1n-zMZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xV8-Jc-sVe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="xV8-Jc-sVe" firstAttribute="bottom" secondItem="Gjs-QV-MLY" secondAttribute="bottom" constant="40" id="1pm-8B-rh4"/>
                             <constraint firstItem="Rsa-cA-HpT" firstAttribute="top" secondItem="xV8-Jc-sVe" secondAttribute="top" id="2m9-Lg-QuS"/>
                             <constraint firstItem="htT-rg-11G" firstAttribute="leading" secondItem="xV8-Jc-sVe" secondAttribute="leading" constant="71" id="8Cn-ER-xvf"/>
                             <constraint firstItem="xV8-Jc-sVe" firstAttribute="trailing" secondItem="htT-rg-11G" secondAttribute="trailing" constant="71" id="8Im-1n-hUh"/>
@@ -176,9 +186,8 @@
                             <constraint firstItem="lYP-CO-YDi" firstAttribute="leading" secondItem="xV8-Jc-sVe" secondAttribute="leading" constant="20" id="SKb-9G-zDG"/>
                             <constraint firstItem="Rsa-cA-HpT" firstAttribute="leading" secondItem="xV8-Jc-sVe" secondAttribute="leading" id="U6V-p7-KcA"/>
                             <constraint firstItem="Gjs-QV-MLY" firstAttribute="centerX" secondItem="xV8-Jc-sVe" secondAttribute="centerX" id="WPz-93-lBz"/>
-                            <constraint firstItem="Gjs-QV-MLY" firstAttribute="top" secondItem="htT-rg-11G" secondAttribute="bottom" constant="5" id="dFp-LN-LTU"/>
                             <constraint firstItem="rFN-4a-HOs" firstAttribute="top" secondItem="xV8-Jc-sVe" secondAttribute="top" constant="131" id="gOd-xx-sxu"/>
-                            <constraint firstItem="xV8-Jc-sVe" firstAttribute="bottom" secondItem="htT-rg-11G" secondAttribute="bottom" constant="127" id="iSa-cF-HUL"/>
+                            <constraint firstItem="Gjs-QV-MLY" firstAttribute="top" secondItem="htT-rg-11G" secondAttribute="bottom" constant="2" id="odG-Av-v4l"/>
                             <constraint firstItem="Rsa-cA-HpT" firstAttribute="trailing" secondItem="xV8-Jc-sVe" secondAttribute="trailing" id="qvw-1G-V8F"/>
                             <constraint firstItem="xV8-Jc-sVe" firstAttribute="trailing" secondItem="lYP-CO-YDi" secondAttribute="trailing" constant="20" id="sQm-L3-TKo"/>
                             <constraint firstItem="lYP-CO-YDi" firstAttribute="top" secondItem="rFN-4a-HOs" secondAttribute="bottom" id="yLe-kw-6Q5"/>
